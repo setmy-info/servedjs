@@ -3,9 +3,10 @@
 # MIT License
 # Copyright (c) 2017 Imre Tabur <imre.tabur@eesti.ee>
 
-RELEASE=1.0.0
+RELEASE=1.0.1
 VERSION_TAG=version-${RELEASE}
 
+npm install && bower install && npm run build && npm run unit
 git add pom.xml package.json release.sh package-lock.json
 git commit -m "${VERSION_TAG}"
 git push

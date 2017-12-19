@@ -5,7 +5,7 @@
 
     <groupId>ee.pub</groupId>
     <artifactId>servedjs</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>war</packaging>
     <name>servedjs</name>
     <url>http://maven.apache.org</url>
