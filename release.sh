@@ -3,10 +3,10 @@
 # MIT License
 # Copyright (c) 2017 Imre Tabur <imre.tabur@eesti.ee>
 
-RELEASE=1.0.0-SNAPSHOT
+RELEASE=1.0.0
 VERSION_TAG=version-${RELEASE}
 
-git add pom.xml package.json release.sh
+git add pom.xml package.json release.sh package-lock.json
 git commit -m "${VERSION_TAG}"
 git push
 git checkout master
