@@ -128,4 +128,47 @@
 
         return browser;
     });
+
+    jsdi.service("localStorage", function () {
+
+        var localStorageService = localStorage;
+
+        localStorageService.get = function (key) {
+            var storageValue = localStorageService.getItem(key);
+            if (storageValue) {
+                return JSON.parse(storageValue);
+            }
+            return null;
+        };
+
+        localStorageService.set = function (key, object) {
+            if (object) {
+                localStorageService.setItem(key, JSON.stringify(object));
+            }
+        };
+
+        return localStorageService;
+    });
+
+    jsdi.service("sessionStorage", function () {
+
+        var sessionStorageService = sessionStorage;
+
+        sessionStorageService.get = function (key) {
+            var storageValue = sessionStorageService.getItem(key);
+            if (storageValue) {
+                return JSON.parse(storageValue);
+            }
+            return null;
+        };
+
+        sessionStorageService.set = function (key, object) {
+            if (object) {
+                sessionStorageService.setItem(key, JSON.stringify(object));
+            }
+        };
+
+        return sessionStorageService;
+    });
+
 }());
