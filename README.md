@@ -50,7 +50,7 @@ nano bower.json
 
 https://bower.io/docs/creating-packages/
 
-bower register servicejs https://github.com/Krabi/servedjs.git
+bower register servedjs https://github.com/Krabi/servedjs.git
 
 ### Release current project
 
