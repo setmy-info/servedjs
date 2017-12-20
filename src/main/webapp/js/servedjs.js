@@ -143,7 +143,7 @@
         };
 
         storageService.set = function (key, object) {
-            if (object) {
+            if (key && object) {
                 this.storage.setItem(key, JSON.stringify(object));
             }
         };
