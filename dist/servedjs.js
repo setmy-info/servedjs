@@ -129,46 +129,53 @@
         return browser;
     });
 
-    jsdi.service("localStorage", function () {
+    var buildStorage = function (storage) {
+        var storageService = {storage: storage};
 
-        var localStorageService = localStorage;
-
-        localStorageService.get = function (key) {
-            var storageValue = localStorageService.getItem(key);
-            if (storageValue) {
-                return JSON.parse(storageValue);
+        storageService.get = function (key) {
+            if (key) {
+                var storageValue = this.storage.getItem(key);
+                if (storageValue) {
+                    return JSON.parse(storageValue);
+                }
             }
             return null;
         };
 
-        localStorageService.set = function (key, object) {
-            if (object) {
-                localStorageService.setItem(key, JSON.stringify(object));
+        storageService.set = function (key, object) {
+            if (key && object) {
+                this.storage.setItem(key, JSON.stringify(object));
             }
         };
 
-        return localStorageService;
-    });
-
-    jsdi.service("sessionStorage", function () {
-
-        var sessionStorageService = sessionStorage;
-
-        sessionStorageService.get = function (key) {
-            var storageValue = sessionStorageService.getItem(key);
-            if (storageValue) {
-                return JSON.parse(storageValue);
-            }
-            return null;
-        };
-
-        sessionStorageService.set = function (key, object) {
-            if (object) {
-                sessionStorageService.setItem(key, JSON.stringify(object));
+        storageService.removeItem = function (key) {
+            if (key) {
+                this.storage.removeItem(key);
             }
         };
 
-        return sessionStorageService;
+        return storageService;
+    };
+
+    jsdi.service("$localStorage", buildStorage(localStorage));
+
+    jsdi.service("$sessionStorage", buildStorage(sessionStorage));
+
+    jsdi.service("$strings", function () {
+        var strings = {
+            replace: function (string, object) {
+                if (string && object) {
+                    var objPropertyName, replacable, regExp;
+                    for (objPropertyName in object) {
+                        replacable = "\\$\\{" + objPropertyName + "\\}";
+                        regExp = new RegExp(replacable, 'g');
+                        string = string.replace(regExp, object[objPropertyName]);
+                    }
+                }
+                return string;
+            }
+        };
+        return strings;
     });
 
 }());

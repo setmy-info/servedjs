@@ -6,6 +6,20 @@ This is ServiceJS extension library to add some basic services for systems.
 
 It is tools collections into services.
 
+### API
+
+Services:
+
+    $log
+
+    $browser
+
+    $localStorage
+
+    $sessionStorage
+
+    $strings
+
 ### Setup
 
 npm install && bower install
@@ -57,23 +71,6 @@ bower register servedjs https://github.com/Krabi/servedjs.git
 Simply:
 
     release.sh
-or
-
-git checkout develop
-
-Remove -SNAPSHOT from pom.xml, package.json and release.sh and commit change
-
-git add pom.xml package.json release.sh package-lock.json
-
-git commit -m 'version-X.Y.Z'
-
-git push
-
-git checkout master
-
-git merge develop
-
-git tag -a version-X.Y.Z -m "version-X.Y.Z" && git push origin version-X.Y.Z && git push && npm publish
 
 ### Github site
 

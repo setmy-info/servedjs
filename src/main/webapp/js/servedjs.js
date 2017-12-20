@@ -157,8 +157,25 @@
         return storageService;
     };
 
-    jsdi.service("localStorage", buildStorage(localStorage));
+    jsdi.service("$localStorage", buildStorage(localStorage));
 
-    jsdi.service("sessionStorage", buildStorage(sessionStorage));
+    jsdi.service("$sessionStorage", buildStorage(sessionStorage));
+
+    jsdi.service("$strings", function () {
+        var strings = {
+            replace: function (string, object) {
+                if (string && object) {
+                    var objPropertyName, replacable, regExp;
+                    for (objPropertyName in object) {
+                        replacable = "\\$\\{" + objPropertyName + "\\}";
+                        regExp = new RegExp(replacable, 'g');
+                        string = string.replace(regExp, object[objPropertyName]);
+                    }
+                }
+                return string;
+            }
+        };
+        return strings;
+    });
 
 }());
