@@ -133,9 +133,11 @@
         var storageService = {storage: storage};
 
         storageService.get = function (key) {
-            var storageValue = this.storage.getItem(key);
-            if (storageValue) {
-                return JSON.parse(storageValue);
+            if (key) {
+                var storageValue = this.storage.getItem(key);
+                if (storageValue) {
+                    return JSON.parse(storageValue);
+                }
             }
             return null;
         };
