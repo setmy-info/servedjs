@@ -129,46 +129,32 @@
         return browser;
     });
 
-    jsdi.service("localStorage", function () {
+    var buildStorage = function (storage) {
+        var storageService = {storage: storage};
 
-        var localStorageService = localStorage;
-
-        localStorageService.get = function (key) {
-            var storageValue = localStorageService.getItem(key);
+        storageService.get = function (key) {
+            var storageValue = this.storage.getItem(key);
             if (storageValue) {
                 return JSON.parse(storageValue);
             }
             return null;
         };
 
-        localStorageService.set = function (key, object) {
+        storageService.set = function (key, object) {
             if (object) {
-                localStorageService.setItem(key, JSON.stringify(object));
+                this.storage.setItem(key, JSON.stringify(object));
             }
         };
 
-        return localStorageService;
-    });
-
-    jsdi.service("sessionStorage", function () {
-
-        var sessionStorageService = sessionStorage;
-
-        sessionStorageService.get = function (key) {
-            var storageValue = sessionStorageService.getItem(key);
-            if (storageValue) {
-                return JSON.parse(storageValue);
-            }
-            return null;
+        storageService.removeItem = function (key) {
+            this.storage.removeItem(key);
         };
 
-        sessionStorageService.set = function (key, object) {
-            if (object) {
-                sessionStorageService.setItem(key, JSON.stringify(object));
-            }
-        };
+        return storageService;
+    };
 
-        return sessionStorageService;
-    });
+    jsdi.service("localStorage", buildStorage(localStorage));
+
+    jsdi.service("sessionStorage", buildStorage(sessionStorage));
 
 }());
