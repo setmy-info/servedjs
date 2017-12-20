@@ -149,7 +149,9 @@
         };
 
         storageService.removeItem = function (key) {
-            this.storage.removeItem(key);
+            if (key) {
+                this.storage.removeItem(key);
+            }
         };
 
         return storageService;
