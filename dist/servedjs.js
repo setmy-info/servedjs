@@ -157,8 +157,8 @@
         return storageService;
     }, addSupported = function () {
         var supported, supportedList = [
-            {globalName: "_", serviceName: "lodash"}, //underscore (http://underscorejs.org/) or lodash (https://lodash.com)
-            {globalName: "S", serviceName: "strings"}//, //http://stringjs.com/
+            {globalName: "_", serviceName: "$lodash"}, //underscore (http://underscorejs.org/) or lodash (https://lodash.com)
+            {globalName: "S", serviceName: "$strings"}//, //http://stringjs.com/
             //{globalName: "History", serviceName: "history"}//, //https://github.com/browserstate/history.js
             //{globalName: "$$", serviceName: "moo"} //https://mootools.net/
             //http://sylvester.jcoglan.com/ , https://johnresig.com/projects/javascript-pretty-date/, http://www.datejs.com/, http://www.jscharts.com/examples, https://johnresig.com/blog/processingjs/
@@ -176,7 +176,7 @@
     jsdi.service("$localStorage", buildStorage(localStorage));
     jsdi.service("$sessionStorage", buildStorage(sessionStorage));
 
-    jsdi.service("$strings", function () {
+    jsdi.service("$placeholders", function () {
         var strings = {
             replace: function (string, object) {
                 if (string && object) {
@@ -208,8 +208,18 @@
                 };
                 return result;
             },
-            newInterval: function (configObject) {
-                return {};// TODO : intervval that can be started and stopped
+            newInterval: function (callback, millis) {
+                var result = {
+                    millis: millis,
+                    timer: null,
+                    start: function () {
+                        this.timer = setInterval(callback, this.millis);
+                    },
+                    stop: function () {
+                        clearTimeout(this.timer);
+                    }
+                };
+                return result;
             }
         };
         return timer;
