@@ -3,7 +3,7 @@
 # MIT License
 # Copyright (c) 2017 Imre Tabur <imre.tabur@eesti.ee>
 
-RELEASE=1.0.4
+RELEASE=1.0.5-SNAPSHOT
 VERSION_TAG=version-${RELEASE}
 
 npm install && bower install && npm run build && npm run unit
