@@ -155,10 +155,25 @@
         };
 
         return storageService;
+    }, addSupported = function () {
+        var supported, supportedList = [
+            {globalName: "_", serviceName: "lodash"}, //underscore (http://underscorejs.org/) or lodash (https://lodash.com)
+            {globalName: "S", serviceName: "strings"}, //http://stringjs.com/
+            {globalName: "History", serviceName: "history"}, //https://github.com/browserstate/history.js
+            {globalName: "$$", serviceName: "moo"} //https://mootools.net/
+            //http://sylvester.jcoglan.com/ , https://johnresig.com/projects/javascript-pretty-date/, http://www.datejs.com/, http://www.jscharts.com/examples, https://johnresig.com/blog/processingjs/
+            // DB, Active records
+        ], i;
+        for (i = 0; i < supportedList.length; i++) {
+            supported = supportedList[i];
+            if (window[supported.globalName]) {
+                jsdi.service(supported.serviceName, window[supported.globalName]);
+            }
+        }
     };
 
+    addSupported();
     jsdi.service("$localStorage", buildStorage(localStorage));
-
     jsdi.service("$sessionStorage", buildStorage(sessionStorage));
 
     jsdi.service("$strings", function () {
@@ -176,6 +191,18 @@
             }
         };
         return strings;
+    });
+
+    jsdi.service("$timer", function () {
+        var timer = {
+            newTimer: function (configObject) {
+                return {};// TODO : timer that can be started and stopped
+            },
+            newInterval: function (configObject) {
+                return {};// TODO : intervval that can be started and stopped
+            }
+        };
+        return timer;
     });
 
 }());
