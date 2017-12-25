@@ -1,6 +1,6 @@
 {
   "name": "servedjs",
-  "version": "1.0.5-SNAPSHOT",
+  "version": "1.0.5",
   "description": "Servicejs integrated tools.",
   "main": "src/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Krabi/servedjs#readme",
   "dependencies": {
-    "servicejs": "^1.0.30",
+    "servicejs": "^1.0.31",
     "express": "^4.16.2",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
