@@ -27,6 +27,6 @@
     ],
     "private": false,
     "dependencies": {
-        "servicejs": "version-1.0.30"
+        "servicejs": "version-1.0.33"
     }
 }
