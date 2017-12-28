@@ -27,6 +27,7 @@
     ],
     "private": false,
     "dependencies": {
-        "servicejs": "version-1.0.33"
+        "servicejs": "version-1.0.33",
+        "axios": "^0.17.1"
     }
 }

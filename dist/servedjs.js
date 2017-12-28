@@ -158,7 +158,8 @@
     }, addSupported = function () {
         var supported, supportedList = [
             {globalName: "_", serviceName: "$lodash"}, //underscore (http://underscorejs.org/) or lodash (https://lodash.com)
-            {globalName: "S", serviceName: "$strings"}//, //http://stringjs.com/
+            {globalName: "S", serviceName: "$strings"}, //http://stringjs.com/
+            {globalName: "axios", serviceName: "$axios"} //https://github.com/axios/axios
             //{globalName: "History", serviceName: "history"}//, //https://github.com/browserstate/history.js
             //{globalName: "$$", serviceName: "moo"} //https://mootools.net/
             //http://sylvester.jcoglan.com/ , https://johnresig.com/projects/javascript-pretty-date/, http://www.datejs.com/, http://www.jscharts.com/examples, https://johnresig.com/blog/processingjs/
