@@ -9,6 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 .bowerrc
 node_modules/
+src/main/webapp/js/servedjs.min.js
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
