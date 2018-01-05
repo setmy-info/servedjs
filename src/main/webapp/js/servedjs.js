@@ -57,21 +57,15 @@
             return (log.currentLevel >= level);
         };
 
-        log.warn = function () {
-            if (console && log.shouldLog(log.WARN)) {
-                console.warn.apply(console, arguments);
-            }
-        };
-
-        log.trace = function () {
-            if (console && log.shouldLog(log.TRACE)) {
-                console.trace.apply(console, arguments);
-            }
-        };
-
         log.error = function () {
             if (console && log.shouldLog(log.ERROR)) {
                 console.error.apply(console, arguments);
+            }
+        };
+
+        log.warn = function () {
+            if (console && log.shouldLog(log.WARN)) {
+                console.warn.apply(console, arguments);
             }
         };
 
@@ -90,6 +84,12 @@
         log.debug = function () {
             if (console && log.shouldLog(log.DEBUG)) {
                 console.log.apply(console, arguments);
+            }
+        };
+
+        log.trace = function () {
+            if (console && log.shouldLog(log.TRACE)) {
+                console.trace.apply(console, arguments);
             }
         };
 

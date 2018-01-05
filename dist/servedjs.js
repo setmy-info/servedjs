@@ -57,21 +57,15 @@
             return (log.currentLevel >= level);
         };
 
-        log.warn = function () {
-            if (console && log.shouldLog(log.WARN)) {
-                console.warn.apply(console, arguments);
-            }
-        };
-
-        log.trace = function () {
-            if (console && log.shouldLog(log.TRACE)) {
-                console.trace.apply(console, arguments);
-            }
-        };
-
         log.error = function () {
             if (console && log.shouldLog(log.ERROR)) {
                 console.error.apply(console, arguments);
+            }
+        };
+
+        log.warn = function () {
+            if (console && log.shouldLog(log.WARN)) {
+                console.warn.apply(console, arguments);
             }
         };
 
@@ -90,6 +84,12 @@
         log.debug = function () {
             if (console && log.shouldLog(log.DEBUG)) {
                 console.log.apply(console, arguments);
+            }
+        };
+
+        log.trace = function () {
+            if (console && log.shouldLog(log.TRACE)) {
+                console.trace.apply(console, arguments);
             }
         };
 
@@ -158,8 +158,8 @@
     }, addSupported = function () {
         var supported, supportedList = [
             {globalName: "_", serviceName: "$lodash"}, //underscore (http://underscorejs.org/) or lodash (https://lodash.com)
-            {globalName: "S", serviceName: "$strings"}, //http://stringjs.com/
-            {globalName: "axios", serviceName: "$axios"} //https://github.com/axios/axios
+            {globalName: "S", serviceName: "$strings"} //http://stringjs.com/
+            //{globalName: "axios", serviceName: "$axios"} // not working! https://github.com/axios/axios
             //{globalName: "History", serviceName: "history"}//, //https://github.com/browserstate/history.js
             //{globalName: "$$", serviceName: "moo"} //https://mootools.net/
             //http://sylvester.jcoglan.com/ , https://johnresig.com/projects/javascript-pretty-date/, http://www.datejs.com/, http://www.jscharts.com/examples, https://johnresig.com/blog/processingjs/
