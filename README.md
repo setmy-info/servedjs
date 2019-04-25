@@ -10,6 +10,10 @@ It is tools collections into services.
 
 Services:
 
+    Getting through:
+
+        jsdi.get()
+
     $log
 
         $log.setLevel($log.ALL);
@@ -79,6 +83,12 @@ Services:
         interval.stop();
 
         Starting and stoping can be started and stopped multiple times.
+
+    $geo
+
+        var geoWatcher = $geo.newWatcher(function (position) {console.log("Position: ", position);});
+        geoWatcher.start();
+        geoWatcher.stop();
 
 ### Setup
 

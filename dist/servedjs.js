@@ -107,23 +107,23 @@
         };
 
         browser.forward = function () {
-            if (window) {
-                window.history.forward();
+            if (global) {
+                global.history.forward();
             }
         };
 
         browser.back = function () {
-            if (window) {
-                window.history.back();
+            if (global) {
+                global.history.back();
             }
         };
 
         browser.go = function (positions) {
-            if (window) {
+            if (global) {
                 if (typeof positions === 'number') {
-                    window.history.go(positions);
+                    global.history.go(positions);
                 } else {
-                    window.location.hash = '#' + positions;
+                    global.location.hash = '#' + positions;
                 }
             }
         };
@@ -226,6 +226,40 @@
             }
         };
         return timer;
+    });
+
+    jsdi.service("$geo", function () {
+        return {
+            newWatcher: function (watcherSuccess, watcherError, options) {
+                return {
+                    success: function (position) {
+                        watcherSuccess({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            accuracy: position.coords.accuracy,
+                            altitude: position.coords.altitude,
+                            altitudeAccuracy: position.coords.altitudeAccuracy,
+                            speed: position.coords.speed,
+                            heading: position.coords.heading,
+                            timestamp: position.timestamp
+                        });
+                    },
+                    error: watcherError,
+                    options: options || {
+                        enableHighAccuracy: true,
+                        maximumAge: 0
+                    },
+                    watchId: null,
+                    start: function () {
+                        this.watchId = navigator.geolocation.watchPosition(this.success, this.error, this.options);
+                    },
+                    stop: function () {
+                        navigator.geolocation.clearWatch(this.watchId);
+                        this.watchId = null;
+                    }
+                };
+            }
+        };
     });
 
 })(typeof window === 'undefined' ? global : window);
