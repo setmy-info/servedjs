@@ -1,7 +1,7 @@
 /*
  MIT License
  
- Copyright (c) 2017 Imre Tabur <imre.tabur@eesti.ee>
+ Copyright (c) 2017-2019 Imre Tabur <imre.tabur@eesti.ee>
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,9 @@
  */
 "use strict";
 
-(function () {
+(function (global) {
+
+    var jsdi = global.jsdi = global.jsdi || {};
 
     jsdi.service("$log", function () {
 
@@ -167,8 +169,8 @@
         ], i;
         for (i = 0; i < supportedList.length; i++) {
             supported = supportedList[i];
-            if (window[supported.globalName]) {
-                jsdi.service(supported.serviceName, window[supported.globalName]);
+            if (global[supported.globalName]) {
+                jsdi.service(supported.serviceName, global[supported.globalName]);
             }
         }
     };
@@ -226,4 +228,4 @@
         return timer;
     });
 
-}());
+})(typeof window === 'undefined' ? global : window);
