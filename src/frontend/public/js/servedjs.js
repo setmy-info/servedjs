@@ -1,4 +1,4 @@
-/*
+/*!
  MIT License
  
  Copyright (c) 2017-2019 Imre Tabur <imre.tabur@eesti.ee>
@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  
- https://github.com/Krabi/servedjs
+ https://github.com/setmy-info/servedjs
  
  */
 "use strict";
