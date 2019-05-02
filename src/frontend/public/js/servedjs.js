@@ -239,6 +239,21 @@
                     }
                 };
             },
+            newPath: function (pointsArray) {
+                return {
+                    points: pointsArray,
+                    init: function () {
+                        this.travelAndCalc();
+                    },
+                    travelAndCalc: function () {
+                        var i, previous, current;
+                        previous = this.points[0];
+                        for (i = 1; i < this.points.length; i++) {
+                            current = this.points[i];
+                        }
+                    }
+                };
+            },
             pointInMeters: function (point) {
                 return {
                     latitude: this.DEGREE_METERS * point.latitude,
