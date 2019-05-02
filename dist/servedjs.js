@@ -209,6 +209,7 @@
 
     jsdi.service("$geo", function () {
         return {
+            DEGREE_METERS: 111134.0,
             newWatcher: function (watcherSuccess, watcherError, options) {
                 return {
                     success: function (position) {
@@ -237,6 +238,21 @@
                         this.watchId = null;
                     }
                 };
+            },
+            pointInMeters: function (point) {
+                return {
+                    latitude: this.DEGREE_METERS * point.latitude,
+                    longitude: this.calcLongitudeMetersCoeficent(point.latitude) * point.longitude
+                };
+            },
+            calcLongitudeMetersCoeficent: function (latitude) {
+                return this.DEGREE_METERS * this.calcLatitudeCoeficent(latitude);
+            },
+            calcLatitudeCoeficent: function (latitude) {
+                return Math.cos(this.calcDegreeRadians(latitude));
+            },
+            calcDegreeRadians: function (degree) {
+                return (Math.PI * degree) / 180.0;
             }
         };
     });
