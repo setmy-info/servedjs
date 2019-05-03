@@ -3,11 +3,11 @@
 # MIT License
 # Copyright (c) 2017-2019 Imre Tabur <imre.tabur@eesti.ee>
 
-RELEASE=1.4.0
+RELEASE=1.4.1
 VERSION_TAG=version-${RELEASE}
 
 npm install && npm run build && npm run test
-git add ./dist package.json package-lock.json release.sh
+git add ./dist package.json package-lock.json release.sh src/frontend/public/js/
 git commit -m "${VERSION_TAG}"
 git push
 git checkout master
