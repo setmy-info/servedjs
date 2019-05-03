@@ -2,7 +2,7 @@ var fs = require('fs');
 var uglify = require("uglify-js");
 
 var code = {
-    "servicejs.js": fs.readFileSync("./src/frontend/public/js/servedjs.js", "utf8")
+    "servedjs.js": fs.readFileSync("./src/frontend/public/js/servedjs.js", "utf8")
 };
 
 var options = {
