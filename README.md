@@ -150,6 +150,10 @@ https://krabi.github.io/servedjs/
 
 https://www.npmjs.com/package/servedjs
 
+### Donate
+
+https://www.paypal.me/imretabur
+
 ### License
 
 MIT
