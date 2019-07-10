@@ -207,4 +207,53 @@
         return timer;
     });
 
+    jsdi.service("$router", function () {
+        var ifBoolean = function (value) {
+            if (value === true || value === false) {
+                return value;
+            }
+            var lowerCase = value.toLowerCase();
+            if (lowerCase === 'true' || lowerCase === 'yes') {
+                return true;
+            } else if (lowerCase === 'false' || lowerCase === 'no') {
+                return false;
+            }
+            return value;
+        };
+        var ifNumber = function (value) {
+            if (isNumber(value)) {
+                return parseInt(value);
+            }
+            return value;
+        };
+        var isNumber = function (value) {
+            return !isNaN(value);
+        };
+        var i,
+                VARIABLE_NAME = 0,
+                VARIABLE_VALUE = 1,
+                varVal,
+                parametersValues,
+                hash = window.location.hash,
+                hashPath = hash.substring(1),
+                hashSides = hashPath.split('?'),
+                hashRouteSide = hashSides[0],
+                hashParametersSide = hashSides.length > 1 ? hashSides[1] : "",
+                router = {
+                    hash: hash,
+                    hashPath: hashPath,
+                    parts: hashRouteSide.split('/').filter(function (element) {//1. remove # 2. split by ? 3. split by /
+                        return (!!element);
+                    }),
+                    parameters: {
+                    }
+                };
+        parametersValues = hashParametersSide.split('&');
+        for (i = 0; i < parametersValues.length; i++) {
+            varVal = parametersValues[i].split('=');
+            router.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? ifBoolean(ifNumber(varVal[VARIABLE_VALUE])) : null;
+        }
+        return router;
+    });
+
 })(typeof window === 'undefined' ? global : window);
