@@ -227,29 +227,6 @@
                 }
             },
             update: function () {
-                var ifBoolean = function (value) {
-                    if (typeof (value) === 'boolean') {
-                        return value;
-                    }
-                    if (typeof value === 'string' || value instanceof String) {
-                        var lowerCase = value.toLowerCase();
-                        if (lowerCase === 'true' || lowerCase === 'yes') {
-                            return true;
-                        } else if (lowerCase === 'false' || lowerCase === 'no') {
-                            return false;
-                        }
-                    }
-                    return value;
-                };
-                var ifNumber = function (value) {
-                    if (isNumber(value)) {
-                        return parseInt(value);
-                    }
-                    return value;
-                };
-                var isNumber = function (value) {
-                    return !isNaN(value);
-                };
                 var i,
                         VARIABLE_NAME = 0,
                         VARIABLE_VALUE = 1,
@@ -272,12 +249,12 @@
                             }
                         };
                 for (i = 0; i < data.parts.length; i++) {
-                    data.parts[i] = ifBoolean(ifNumber(data.parts[i]));
+                    data.parts[i] = data.parts[i].toType();
                 }
                 parametersValues = hashParametersSide.split('&');
                 for (i = 0; i < parametersValues.length; i++) {
                     varVal = parametersValues[i].split('=');
-                    data.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? ifBoolean(ifNumber(varVal[VARIABLE_VALUE])) : null;
+                    data.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? varVal[VARIABLE_VALUE].toType() : null;
                 }
                 this.data = data;
             }
