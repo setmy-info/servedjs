@@ -208,51 +208,80 @@
     });
 
     jsdi.service("$router", function () {
-        var ifBoolean = function (value) {
-            if (value === true || value === false) {
-                return value;
-            }
-            var lowerCase = value.toLowerCase();
-            if (lowerCase === 'true' || lowerCase === 'yes') {
-                return true;
-            } else if (lowerCase === 'false' || lowerCase === 'no') {
-                return false;
-            }
-            return value;
-        };
-        var ifNumber = function (value) {
-            if (isNumber(value)) {
-                return parseInt(value);
-            }
-            return value;
-        };
-        var isNumber = function (value) {
-            return !isNaN(value);
-        };
-        var i,
-                VARIABLE_NAME = 0,
-                VARIABLE_VALUE = 1,
-                varVal,
-                parametersValues,
-                hash = window.location.hash,
-                hashPath = hash.substring(1),
-                hashSides = hashPath.split('?'),
-                hashRouteSide = hashSides[0],
-                hashParametersSide = hashSides.length > 1 ? hashSides[1] : "",
-                router = {
-                    hash: hash,
-                    hashPath: hashPath,
-                    parts: hashRouteSide.split('/').filter(function (element) {//1. remove # 2. split by ? 3. split by /
-                        return (!!element);
-                    }),
-                    parameters: {
+        var router = {
+            data: null,
+            callback: null,
+            configure: function (callback) {
+                if (callback) {
+                    this.callback = callback;
+                    var that = this;
+                    window.addEventListener("hashchange", function () {
+                        that.process();
+                    }, false);
+                }
+            },
+            process: function () {
+                this.update();
+                if (this.callback) {
+                    this.callback(this.data);
+                }
+            },
+            update: function () {
+                var ifBoolean = function (value) {
+                    if (typeof (value) === 'boolean') {
+                        return value;
                     }
+                    if (typeof value === 'string' || value instanceof String) {
+                        var lowerCase = value.toLowerCase();
+                        if (lowerCase === 'true' || lowerCase === 'yes') {
+                            return true;
+                        } else if (lowerCase === 'false' || lowerCase === 'no') {
+                            return false;
+                        }
+                    }
+                    return value;
                 };
-        parametersValues = hashParametersSide.split('&');
-        for (i = 0; i < parametersValues.length; i++) {
-            varVal = parametersValues[i].split('=');
-            router.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? ifBoolean(ifNumber(varVal[VARIABLE_VALUE])) : null;
-        }
+                var ifNumber = function (value) {
+                    if (isNumber(value)) {
+                        return parseInt(value);
+                    }
+                    return value;
+                };
+                var isNumber = function (value) {
+                    return !isNaN(value);
+                };
+                var i,
+                        VARIABLE_NAME = 0,
+                        VARIABLE_VALUE = 1,
+                        varVal,
+                        parametersValues,
+                        hash = window.location.hash,
+                        hashPath = hash.substring(1),
+                        hashSides = hashPath.split('?'),
+                        hashRouteSide = hashSides[0],
+                        hashParametersSide = hashSides.length > 1 ? hashSides[1] : "",
+                        data = {
+                            hash: hash,
+                            hashPath: hashPath,
+                            hashRouteSide: hashRouteSide,
+                            hashParametersSide: hashParametersSide,
+                            parts: hashRouteSide.split('/').filter(function (element) {//1. remove # 2. split by ? 3. split by /
+                                return (!!element);
+                            }),
+                            parameters: {
+                            }
+                        };
+                for (i = 0; i < data.parts.length; i++) {
+                    data.parts[i] = ifBoolean(ifNumber(data.parts[i]));
+                }
+                parametersValues = hashParametersSide.split('&');
+                for (i = 0; i < parametersValues.length; i++) {
+                    varVal = parametersValues[i].split('=');
+                    data.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? ifBoolean(ifNumber(varVal[VARIABLE_VALUE])) : null;
+                }
+                this.data = data;
+            }
+        };
         return router;
     });
 
