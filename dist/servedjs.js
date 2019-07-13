@@ -207,4 +207,59 @@
         return timer;
     });
 
+    jsdi.service("$router", function () {
+        var router = {
+            data: null,
+            callback: null,
+            configure: function (callback) {
+                if (callback) {
+                    this.callback = callback;
+                    var that = this;
+                    window.addEventListener("hashchange", function () {
+                        that.process();
+                    }, false);
+                }
+            },
+            process: function () {
+                this.update();
+                if (this.callback) {
+                    this.callback(this.data);
+                }
+            },
+            update: function () {
+                var i,
+                        VARIABLE_NAME = 0,
+                        VARIABLE_VALUE = 1,
+                        varVal,
+                        parametersValues,
+                        hash = window.location.hash,
+                        hashPath = hash.substring(1),
+                        hashSides = hashPath.split('?'),
+                        hashRouteSide = hashSides[0],
+                        hashParametersSide = hashSides.length > 1 ? hashSides[1] : "",
+                        data = {
+                            hash: hash,
+                            hashPath: hashPath,
+                            hashRouteSide: hashRouteSide,
+                            hashParametersSide: hashParametersSide,
+                            parts: hashRouteSide.split('/').filter(function (element) {//1. remove # 2. split by ? 3. split by /
+                                return (!!element);
+                            }),
+                            parameters: {
+                            }
+                        };
+                for (i = 0; i < data.parts.length; i++) {
+                    data.parts[i] = data.parts[i].toType();
+                }
+                parametersValues = hashParametersSide.split('&');
+                for (i = 0; i < parametersValues.length; i++) {
+                    varVal = parametersValues[i].split('=');
+                    data.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? varVal[VARIABLE_VALUE].toType() : null;
+                }
+                this.data = data;
+            }
+        };
+        return router;
+    });
+
 })(typeof window === 'undefined' ? global : window);
