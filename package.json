@@ -1,6 +1,6 @@
 {
     "name": "servedjs",
-    "version": "1.4.4",
+    "version": "1.4.4-SNAPSHOT",
     "description": "Servicejs integrated tools.",
     "main": "src/index.js",
     "scripts": {
