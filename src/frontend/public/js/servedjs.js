@@ -212,7 +212,7 @@
             data: null,
             callback: null,
             configure: function (callback) {
-                if (callback) {
+                if (callback && !this.callback) {
                     this.callback = callback;
                     var that = this;
                     window.addEventListener("hashchange", function () {
