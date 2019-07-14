@@ -287,6 +287,7 @@
                 parametersValues = hashParametersSide.split('&');
                 for (i = 0; i < parametersValues.length; i++) {
                     varVal = parametersValues[i].split('=');
+                    // TODO : array list when multiple same parameters found
                     data.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? varVal[VARIABLE_VALUE].toType() : null;
                 }
                 this.data = data;
