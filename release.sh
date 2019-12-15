@@ -3,7 +3,7 @@
 # MIT License
 # Copyright (c) 2017-2019 Imre Tabur <imre.tabur@eesti.ee>
 
-RELEASE=1.4.3-SNAPSHOT
+RELEASE=1.4.5-SNAPSHOT
 VERSION_TAG=version-${RELEASE}
 
 npm install && npm run build && npm run test

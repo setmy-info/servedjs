@@ -212,13 +212,46 @@
             data: null,
             callback: null,
             configure: function (callback) {
-                if (callback) {
-                    this.callback = callback;
-                    var that = this;
-                    window.addEventListener("hashchange", function () {
-                        that.process();
-                    }, false);
+                if (callback && !this.callback) {
+                    if (typeof (callback) === 'function') {
+                        this.configureFunction(callback);
+                    } else if (ypeof(callback) === 'object') {
+                        this.configureFunction(callback);
+                    }
                 }
+            },
+            configureFunction: function (callbackFunction) {
+                this.callback = callbackFunction;
+                var that = this;
+                window.addEventListener("hashchange", function () {
+                    that.process();
+                }, false);
+            },
+            configureObject: function (callbackObject) {
+                var that = this, callback = function (data) {
+                    that.handleRouting(data);
+                };
+                this.callbackObject = callbackObject;
+                this.configureFunction(callback);
+            },
+            handleRouting: function (data) {
+                var i, defaultPath, route, routes = this.callbackObject.routes;
+                for (i = 0; i < routes.length; i++) {
+                    route = routes[i];
+                    if (this.isRoute(route)) {
+                        route.callback(data);
+                        return;
+                    }
+                }
+                defaultPath = this.callbackObject.defaultPath || "/";
+                this.goTo(defaultPath);
+            },
+            goTo: function (hashPath) {
+                window.location.hash = hashPath;
+            },
+            isRoute: function (route) {
+                // TODO : path comparision ans searching
+                return false;
             },
             process: function () {
                 this.update();
@@ -254,6 +287,7 @@
                 parametersValues = hashParametersSide.split('&');
                 for (i = 0; i < parametersValues.length; i++) {
                     varVal = parametersValues[i].split('=');
+                    // TODO : array list when multiple same parameters found
                     data.parameters[varVal[VARIABLE_NAME]] = (varVal.length === 2) ? varVal[VARIABLE_VALUE].toType() : null;
                 }
                 this.data = data;
