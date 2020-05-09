@@ -1,17 +1,33 @@
-var fs = require('fs');
-var uglify = require("uglify-js");
+const fs = require('fs');
+const uglify = require("uglify-js");
 
-var code = {
-    "servedjs.js": fs.readFileSync("./src/frontend/public/js/servedjs.js", "utf8")
+const projectName = "servedjs";
+const sourceFileName = projectName + ".js";
+const minifiedFileName = projectName + ".min.js";
+const indexFileName = "index.js";
+const sourcesLocation = "./src/frontend/public/js/";
+const sourcePath = sourcesLocation + sourceFileName;
+const minifiedPath = sourcesLocation + minifiedFileName;
+const indexPath = sourcesLocation + indexFileName;
+const distPath = "./dist/";
+const distFilePath = distPath + sourceFileName;
+const distMinifiedFilePath = distPath + minifiedFileName;
+const distIndexFilePath = distPath + indexFileName;
+
+const code = {
+    "servedjs.js": fs.readFileSync(sourcePath, "utf8")
 };
 
-var options = {
+const options = {
     output: {
         comments: /^!/
     }
 };
 
-fs.writeFileSync("./src/frontend/public/js/servedjs.min.js", uglify.minify(code, options).code, "utf8");
+// Make minification, next to unminified project source file
+fs.writeFileSync(minifiedPath, uglify.minify(code, options).code, "utf8");
 
-fs.createReadStream("./src/frontend/public/js/servedjs.js").pipe(fs.createWriteStream("./dist/servedjs.js"));
-fs.createReadStream("./src/frontend/public/js/servedjs.min.js").pipe(fs.createWriteStream("./dist/servedjs.min.js"));
+// Copy to dist 
+fs.createReadStream(sourcePath).pipe(fs.createWriteStream(distFilePath));
+fs.createReadStream(minifiedPath).pipe(fs.createWriteStream(distMinifiedFilePath));
+fs.createReadStream(indexPath).pipe(fs.createWriteStream(distIndexFilePath));

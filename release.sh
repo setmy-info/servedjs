@@ -4,7 +4,7 @@
 # Copyright (c) 2017-2020 Imre Tabur <imre.tabur@eesti.ee>
 
 NAME=servedjs
-RELEASE=1.4.6
+RELEASE=`node ./src/build/version.js`
 VERSION_TAG=version-${RELEASE}
 
 npm install
