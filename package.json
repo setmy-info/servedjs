@@ -1,8 +1,8 @@
 {
     "name": "servedjs",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "description": "Servicejs integrated tools.",
-    "main": "src/index.js",
+    "main": "dist/index.js",
     "scripts": {
         "start": "node src/backend/bin/www",
         "unit": "karma start karma.conf.js --single-run",
