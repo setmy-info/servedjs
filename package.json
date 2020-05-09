@@ -1,7 +1,9 @@
 {
     "name": "servedjs",
-    "version": "1.5.2",
+    "version": "1.5.3",
     "description": "Servicejs integrated tools.",
+    "license": "MIT",
+    "author": "Imre Tabur <imre.tabur@eesti.ee>",
     "main": "dist/index.js",
     "scripts": {
         "start": "node src/backend/bin/www",
@@ -22,8 +24,6 @@
         "dependencies",
         "injection"
     ],
-    "author": "Imre Tabur <imre.tabur@eesti.ee>",
-    "license": "MIT",
     "bugs": {
         "url": "https://github.com/setmy-info/servedjs/issues"
     },
