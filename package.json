@@ -1,6 +1,6 @@
 {
     "name": "servedjs",
-    "version": "1.5.1",
+    "version": "1.5.2",
     "description": "Servicejs integrated tools.",
     "main": "dist/index.js",
     "scripts": {
@@ -29,7 +29,7 @@
     },
     "homepage": "https://github.com/setmy-info/servedjs#readme",
     "dependencies": {
-        "servicejs": "^1.1.14",
+        "servicejs": "1.2.1",
         "lodash": "4.17.15"
     },
     "devDependencies": {
